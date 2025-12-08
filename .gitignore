@@ -1,3 +1,5 @@
+JIVS_api_key.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -214,3 +216,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / React (frontend)
+frontend/node_modules/
+frontend/.pnp/
+frontend/.pnp.js
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
+
+# Build output
+frontend/build/
+frontend/.next/
+frontend/out/
+frontend/coverage/
+
+# Environment files (frontend)
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Misc
+frontend/.cache/
+frontend/.turbo/
+frontend/.parcel-cache/
+frontend/.eslintcache
