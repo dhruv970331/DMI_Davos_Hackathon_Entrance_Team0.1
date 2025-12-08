@@ -5,8 +5,38 @@ import json
 import os
 import base64
 import webbrowser
+from html2image import Html2Image
+import io
+
 from datetime import datetime
 from generate_code import (generate_standard_code)
+
+
+    # 6. Inject 'Download as Image' Script
+download_script = """
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <div style="position: absolute; top: 10px; right: 10px; z-index: 9999;">
+        <button onclick="downloadAsImage()" style="background: #222; color: #fff; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            📸 Download as Image
+        </button>
+    </div>
+    <script>
+    function downloadAsImage() {
+        const element = document.body;
+        html2canvas(element, {
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: null
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'marketing_asset_' + new Date().getTime() + '.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    }
+    </script>
+    """
+
 
 # --- 1. CONFIGURATION ---
 st.set_page_config(layout="wide", page_title="JiVS Auto-Coder: Redesign Edition")
@@ -318,7 +348,11 @@ else:
                 if 'style_json' not in st.session_state:
                     with st.spinner("Auto-locking styles..."):
                         # style = extract_unified_style(uploaded_files, google_key)
-                        style, gemini_files = extract_unified_style(uploaded_files, google_key)        
+                        style, gemini_files = extract_unified_style(uploaded_files, google_key)
+                        print("Extracted Style:", gemini_files)
+                        for f in uploaded_files:
+                            ctx = st.session_state.get(f"txt_{f.name}", "")
+                            manager.save_upload(f, ctx)
                         st.session_state['gemini_files'] = gemini_files
                         st.session_state['style_json'] = style
 
@@ -338,6 +372,12 @@ else:
                         gemini_files,
                         google_key
                     )
+
+                    if "</body>" in code:
+                        final_html = code.replace("</body>", f"{download_script}</body>")        
+                        hti = Html2Image()
+                        hti.screenshot(html_str=final_html, save_as='temp.png')
+
                     st.session_state['gen_code'] = code
                     saved_path = manager.save_code("generated_prototype.html", code, user_req)
                     st.session_state['last_saved_path'] = saved_path
