@@ -1,0 +1,29 @@
+pytest 
+pytest-json-report
+# --- Core Web Framework ---
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+python-multipart          # Required for File Uploads
+pydantic>=2.0.0
+
+# --- AI & LLM SDKs ---
+google-generativeai>=0.4.0 # Google Gemini SDK
+openai>=1.0.0              # OpenAI SDK (for fallback or specific models)
+
+# --- LangChain & Vector Database (Memory) ---
+langchain
+langchain-google-genai
+langchain-openai
+langchain-qdrant
+qdrant-client
+
+# --- Image Processing ---
+pillow>=10.0.0            # For PIL Image manipulation
+
+# --- Utilities ---
+python-dotenv             # For loading .env files
+requests                  # For making HTTP requests (if needed)
+
+# --- Test Runner (System Tests) ---
+pytest
+pytest-json-report        # Generates JSON reports for the frontend
