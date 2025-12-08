@@ -2,7 +2,7 @@
 
 # Alchemy Studio
 
-![Alchemy Studio Logo](./AlchemyStudio_Logo.png =100x100)
+![Alchemy Studio Logo](./AlchemyStudio_Logo.png)
 
 **Alchemy Studio** is a powerful, AI-driven design automation tool that transforms design workflows by automatically converting designs into functional code and deployable projects. Built with modern web technologies, Alchemy Studio streamlines the entire design-to-development pipeline, enabling designers and developers to collaborate seamlessly.
 
